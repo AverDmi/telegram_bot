@@ -1,4 +1,4 @@
-package com.dimthomas.entity.enams;
+package com.dimthomas.entity.enums;
 
 public enum UserState {
     BASIC_STATE,

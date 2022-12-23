@@ -1,6 +1,6 @@
 package com.dimthomas.entity;
 
-import com.dimthomas.entity.enams.UserState;
+import com.dimthomas.entity.enums.UserState;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
