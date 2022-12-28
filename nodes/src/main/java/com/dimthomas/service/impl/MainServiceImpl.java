@@ -3,6 +3,7 @@ package com.dimthomas.service.impl;
 import com.dimthomas.dao.AppUserDAO;
 import com.dimthomas.dao.RawDataDAO;
 import com.dimthomas.entity.AppDocument;
+import com.dimthomas.entity.AppPhoto;
 import com.dimthomas.entity.AppUser;
 import com.dimthomas.entity.RawData;
 import com.dimthomas.exceptions.UploadFileException;
@@ -89,9 +90,16 @@ public class MainServiceImpl implements MainService {
             return;
         }
 
-        //TODO добавить сохранение фото
-        var answer = "Фото успешно загружено! Ссылка для скачивания: http://test.ru/get-photo/777";
-        sendAnswer(answer, chatId);
+        try {
+            AppPhoto photo = fileService.processPhoto(update.getMessage());
+            //TODO добавить генерацию ссылки для скачивания фото
+            var answer = "Фото успешно загружено! Ссылка для скачивания: http://test.ru/get-photo/777";
+            sendAnswer(answer, chatId);
+        } catch (UploadFileException e) {
+            log.error(e);
+            String error = "К сожалению загрузка фото не удалась. Повторите попытку позже.";
+            sendAnswer(error, chatId);
+        }
     }
 
     private boolean isNotAllowToSendContent(Long chatId, AppUser appUser) {
